@@ -1,0 +1,74 @@
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th><button class="btn btnPrime fullCover" data-toggle="modal" data-target="#addFunds"><span class="fa fa-plus"></span> Add New Task</button></th>
+        </tr>
+    </thead>
+</table>
+
+
+<div class="table-responsive">
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th class="centered indexCell matchDouble">#</th>
+                <th class="extendedCell matchDouble">Task ID</th>
+                <th class="centered">Employee CODE</th>
+                <th class="centered">Name</th>
+                <th class="centered">Task Name</th>
+                <th class="centered">Employee Phone</th>
+                <th class="centered">Employee e-Mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let record of funds; let i=index;">
+                <th>{{i+1}}</th>
+                <td>{{record.taskId}}</td>
+                <td>{{record.employee.employeeCode}}</td>
+                <td>{{record.employee.name}}</td>
+                <td>{{record.taskName}}</td>
+                <td>{{record.employee.phone}}</td>
+                <td>{{record.employee.email}}</td>
+            </tr>
+            <tr *ngIf="funds.length <1 ">
+                <th colspan="7">No Record found</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addFunds" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content boxed">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title heading">Add Funds !</h4>
+            </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-black-tie"></i></span>
+                        <input id="name" type="text" class="form-control"
+                            placeholder="Task Name" [(ngModel)]="taskName">
+                    </div>
+                    <div class="input-group" style="width: 100%;">
+                        <select class="form-control"
+                        [(ngModel)]="employeeId">
+                        <option value="noFilter"> -- Select Employee -- </option>
+                        <option *ngFor="let employee of employees; let i=index;" [value]="employee.employeeId">
+                            {{employee.name | titlecase}} - {{employee.employeeCode}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="modal-footer centered">
+                    <button type="button" class="btn" data-dismiss="modal" (click)="validateAndAdd()">Add Task</button>
+                </div>
+        </div>
+
+    </div>
+</div>
+
+<app-loader></app-loader>
